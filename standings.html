@@ -27,7 +27,7 @@
 </head>
 <body onload="getData()">
 
-<img style="width: 100px" "id="leagueEmblem"/>
+<img id="leagueEmblem" width="100px"/>
 <table id="dataTable">
     <thead>
         <tr>
@@ -61,7 +61,6 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('leagueEmblem').src = data.competition.emblem;
-                document.getElementById('leagueTitle').src = data.competition.name;
 
                 const tbody = document.getElementById('dataTable').querySelector('tbody');
                 tbody.innerHTML = ''; // Clear existing data
