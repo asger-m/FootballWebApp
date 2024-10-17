@@ -33,19 +33,11 @@
     <thead>
         <tr>
             <th colspan="2" id="home_team_name"></th>
-	    <th id="match_result"></th>
+	    <th id="match_result" style="text-align: center"></th>
 	    <th id="away_team_name"></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Spilletid</td>
-            <td id="minutes_played" colspan="3"></td>
-            <td>Stadion</td>
-            <td id="stadium" colspan="3"></td>
-            <td>Dommer</td>
-            <td id="referee" colspan="3"></td>
-        </tr>
         <!-- Data will be inserted here -->
     </tbody>
 </table>
@@ -65,7 +57,6 @@
             .then(data => {
                 const tbody = document.getElementById('dataTable').querySelector('tbody');
                 tbody.innerHTML = ''; // Clear existing data
-                console.log(data);
                 
 		document.getElementById('home_team_name').innerHTML = data.homeTeam.name;
 		document.getElementById('match_result').innerHTML = "<b>"+data.score.fullTime.home+"-"+data.score.fullTime.away+"</b><br>("+data.score.halfTime.home+"-"+data.score.halfTime.away+")";
