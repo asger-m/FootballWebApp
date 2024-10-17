@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team</title>
+        <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+            color: #3b3b3b;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body onload="getData()">
+
+<h1>football results</h1>
+<table id="dataTable">
+    <tbody>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+<br>
+<table id="playerTable">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Birthday</th>
+            <th>Nationality</th>
+
+ 	// tilføj flere overskrifter til spiller informationer her
+
+
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+    function getData() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        fetch('https://api.football-data.org/v4/teams/'+urlParams.get('team'), {
+            method: 'GET', // or 'POST', depending on your needs
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': '64da651d455a42f8b38a7312b83a8356' // Example header
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing data
+                tbody.innerHTML = `
+                    <tr><td>Name</td><td><b>${data.name}</b></td><td rowspan="5"><img src="${data.crest}" width="100"></td></tr>
+                    <tr><td>Name</td><td>${data.address}</td></tr>
+                    <tr><td>Name</td><td>${data.area.name}</td></tr>
+                    <tr><td>Name</td><td>${data.founded}</td></tr>
+                    <tr><td>Name</td><td><a href="${data.website}">${data.website}</a></td></tr>
+                `;
+                
+                squadBody = document.getElementById('playerTable').querySelector('tbody');
+                squadBody.innerHTML = ''; // Clear existing data
+                data.squad.forEach(player => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${player.position}</td>
+                        <td>${player.name}</td>
+
+			// tilføj flere spiller informationer her
+			
+                    `;
+                    squadBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+</script>
+
+</body>
+</html>

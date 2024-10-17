@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stilling</title>
+        <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+            color: #3b3b3b;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body onload="getData()">
+
+<h1>football results</h1>
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th colspan="2" id="home_team_name"></th>
+	    <th id="match_result"></th>
+	    <th id="away_team_name"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Spilletid</td>
+            <td id="minutes_played" colspan="3"></td>
+            <td>Stadion</td>
+            <td id="stadium" colspan="3"></td>
+            <td>Dommer</td>
+            <td id="referee" colspan="3"></td>
+        </tr>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+    function getData() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        fetch('https://api.football-data.org/v4/matches/'+urlParams.get('match'), {
+            method: 'GET', // or 'POST', depending on your needs
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': '64da651d455a42f8b38a7312b83a8356' // Example header
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing data
+                console.log(data);
+                
+		document.getElementById('home_team_name').innerHTML = data.homeTeam.name;
+		document.getElementById('match_result').innerHTML = "<b>"+data.score.fullTime.home+"-"+data.score.fullTime.away+"</b><br>("+data.score.halfTime.home+"-"+data.score.halfTime.away+")";
+		document.getElementById('away_team_name').innerHTML = data.awayTeam.name;
+
+		document.getElementById('minutes_played').innerHTML = data.minute+"+"+data.injuryTime;
+
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+</script>
+
+</body>
+</html>

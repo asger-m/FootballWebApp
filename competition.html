@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ligaer</title>
+    <style>
+        table {
+            margin: 0 0 40px 0;
+            width: 100%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            display: table;
+            @media screen and (max-width: 580px);
+            display: block;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body onload="getData()">
+
+
+<h1>football results</h1>
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th colspan="3">Name</th>
+            <th>Logo</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+    function getData() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+console.log(urlParams.get('areas'));
+        fetch('https://api.football-data.org/v4/competitions?areas='+urlParams.get('areas'), {
+            method: 'GET', // or 'POST', depending on your needs
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': '64da651d455a42f8b38a7312b83a8356' // Example header
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing data
+                console.log(data);
+                
+                data.competitions.forEach(competitions => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${competitions.id}</td>
+                        <td>${competitions.name}</td>
+                        <td><a href="./standings.html?competitions=${competitions.code}">Standings</a></td>
+                        <td><a href="./matches.html?competitions=${competitions.code}">Matches</a></td>
+                        <td><img src="${competitions.emblem}" width="60"></td>
+                        
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
+
+</body>
+</html>

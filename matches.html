@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stilling</title>
+        <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 400;
+            color: #3b3b3b;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body onload="getData()">
+
+<h1>football results</h1>
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th colspan="2" style="text-align:center">Home team</th>
+            <th></th>
+            <th colspan="2"style="text-align:center">Away team</th>
+            <th>Matchday</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+    function getData() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        fetch('https://api.football-data.org/v4/competitions/'+urlParams.get('competitions')+'/matches', {
+            method: 'GET', // or 'POST', depending on your needs
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': '64da651d455a42f8b38a7312b83a8356' // Example header
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing data
+                console.log(data);
+                
+                data.matches.forEach(match => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><a href="team.html?team=${match.homeTeam.id}">${match.homeTeam.name}</a></td>
+                        <td><img src="${match.homeTeam.crest}" width="25"></td>
+                        <td style="text-align:center"><a href="match.html?match=${match.id}">${match.score.fullTime.home}-${match.score.fullTime.away}</a></td>
+                        <td><img src="${match.awayTeam.crest}" width="25"></td>
+                        <td><a href="team.html?team=${match.awayTeam.id}">${match.awayTeam.name}</a></td>
+                        <td>${match.matchday}</td>
+                        <td>${new Date(match.utcDate).toString().substring(0,21)}</td>
+                        
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+</script>
+
+</body>
+</html>

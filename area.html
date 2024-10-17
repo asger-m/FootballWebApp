@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lande</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body onload="getData()">
+
+
+<h1>football results</h1>
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Flag</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+    function getData() {
+        fetch('https://api.football-data.org//v4/areas/', {
+            method: 'GET', // or 'POST', depending on your needs
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': '64da651d455a42f8b38a7312b83a8356' // Example header
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing data
+                const areaCodes = [2187, 2072, 2224, 2081, 2114, 2088, 2256, 2023, 2163, 2220, 2247, 2032, 2065, 2209, 2066, 2011];
+                data.areas.forEach(area => {
+                    if (areaCodes.includes(area.id)) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><a href="./competition.html?areas=${area.id}">${area.name}</a></td>
+                            <td><img src="${area.flag}" width="60"></td>                        
+                        `;
+                        tbody.appendChild(row);
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
+
+</body>
+</html>
