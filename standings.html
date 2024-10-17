@@ -8,7 +8,7 @@
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 400;
             color: #3b3b3b;
         }
 
@@ -27,7 +27,7 @@
 </head>
 <body onload="getData()">
 
-<h1>football results</h1>
+<img id="leagueEmblem"/><h1 id="leagueTitle"></h1>
 <table id="dataTable">
     <thead>
         <tr>
@@ -60,6 +60,9 @@
         })
             .then(response => response.json())
             .then(data => {
+                document.getElementById('leagueEmblem').src = data.competition.emblem;
+                document.getElementById('leagueTitle').src = data.competition.name;
+
                 const tbody = document.getElementById('dataTable').querySelector('tbody');
                 tbody.innerHTML = ''; // Clear existing data
                 console.log(data);
@@ -67,16 +70,16 @@
                 data.standings[0].table.forEach(standing => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${standing.position}</td>
+                        <td style="text-align: right">${standing.position}</td>
                         <td><img src="${standing.team.crest}" width="22"></td>
                         <td><a href="./team.html?team=${standing.team.id}">${standing.team.name}</a></td>
-                        <td>${standing.playedGames}</td>
-                        <td>${standing.won}</td>
-                        <td>${standing.draw}</td>
-                        <td>${standing.lost}</td>
-                        <td>${standing.goalsFor}/${standing.goalsAgainst}</td>
-                        <td>${standing.goalDifference}</td>
-                        <td>${standing.points}</td>
+                        <td style="text-align: right">${standing.playedGames}</td>
+                        <td style="text-align: right">${standing.won}</td>
+                        <td style="text-align: right">${standing.draw}</td>
+                        <td style="text-align: right">${standing.lost}</td>
+                        <td style="text-align: right">${standing.goalsFor}/${standing.goalsAgainst}</td>
+                        <td style="text-align: right">${standing.goalDifference}</td>
+                        <td style="text-align: right">${standing.points}</td>
                         
                     `;
                     tbody.appendChild(row);
