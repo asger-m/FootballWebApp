@@ -7,8 +7,8 @@
         <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial;
-            font-size: 14px;
-            line-height: 20px;
+            font-size: 12px;
+            line-height: 26px;
             font-weight: 400;
             color: #3b3b3b;
         }
@@ -18,7 +18,7 @@
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 4px;
             text-align: left;
         }
         th {
@@ -32,15 +32,15 @@
 <table id="dataTable">
     <thead>
         <tr>
-            <th>position</th>
-            <th colspan="2" style="text-align: center">Team</th>
-            <th>points</th>
-            <th>Games played</th>
+            <th>#</th>
+            <th colspan="2" style="text-align: center"></th>
+            <th>P</th>
             <th>W</th>
             <th>D</th>
             <th>L</th>
             <th>+/-</th>
-            <th>Goal difference</th>
+            <th>GD</th>
+            <th>Pts</th>
         </tr>
     </thead>
     <tbody>
@@ -69,15 +69,15 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${standing.position}</td>
+                        <td><img src="${standing.team.crest}" width="22"></td>
                         <td><a href="./team.html?team=${standing.team.id}">${standing.team.name}</a></td>
-                        <td><img src="${standing.team.crest}" width="25"></td>
-                        <td>${standing.points}</td>
                         <td>${standing.playedGames}</td>
                         <td>${standing.won}</td>
                         <td>${standing.draw}</td>
                         <td>${standing.lost}</td>
                         <td>${standing.goalsFor}/${standing.goalsAgainst}</td>
                         <td>${standing.goalDifference}</td>
+                        <td>${standing.points}</td>
                         
                     `;
                     tbody.appendChild(row);
