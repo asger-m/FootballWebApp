@@ -64,7 +64,7 @@
                     }
                     
                     var rowData = `
-                        <td><a href="team.html?team=${match.homeTeam.id}">${match.homeTeam.name}</a></td>
+                        <td><a href="team.html?team=${match.homeTeam.id}">${match.homeTeam.shortName}</a></td>
                         <td><img src="${match.homeTeam.crest}" width="25"></td>`;
                     if(match.status=='FINISHED')
                         rowData += `<td style="text-align:center"><a href="match.html?match=${match.id}">${match.score.fullTime.home}-${match.score.fullTime.away}</a></td>`;
@@ -72,7 +72,7 @@
                         rowData += `<td style="text-align:center"><a href="match.html?match=${match.id}"></a></td>`;
                     rowData += `
                         <td><img src="${match.awayTeam.crest}" width="25"></td>
-                        <td><a href="team.html?team=${match.awayTeam.id}">${match.awayTeam.name}</a></td>
+                        <td><a href="team.html?team=${match.awayTeam.id}">${match.awayTeam.shortName}</a></td>
                         <td>${new Date(match.utcDate).toString().substring(0,21)}</td>`;
                     row.innerHTML = rowData;
                     tbody.appendChild(row);
@@ -83,8 +83,12 @@
     function gotoRound() {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        if(urlParams.get('round') != "")
-            document.getElementById('round_'+urlParams.get('round')).scrollIntoView();
+        if(urlParams.get('round') != "") {
+            vat roundId = 'round_'+urlParams.get('round');
+            console.log(roundId);
+            var thisRound = document.getElementById(roundId);
+            console.log(thisRound == null);
+            thisRound.scrollIntoView();
         }
 
 </script>
