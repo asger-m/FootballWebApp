@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lande</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial;
+            font-size: 14px;
+            font-weight: 400;
+            color: #3b3b3b;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border-top: 1px solid #ccc;
+            padding: 2px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body onload="getData()">
+
+
+<h1>football results</h1>
+<table id="dataTable">
+    <tbody>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
+
+<script>
+    function getData() {
+        fetch('https://a23a0ae7-b23e-41a3-9541-9f0272b317b7-prod.e1-eu-north-azure.choreoapis.dev/footballapp/footballorg/v1.0/areas/', {
+            method: 'GET', // or 'POST', depending on your needs
+            headers: {
+                'Content-Type': 'application/json'
+               // 'Authorization': 'Bearer eyJ4NXQiOiJfZ2R2OXFZbnBUSDlpWE12Ri1JZ1hqdEdJQTAiLCJraWQiOiJPVGswT0RBMk5XUmpPRFUyT1dFek9EazRNMlEyTW1VNE9HVmtPV1l4T1dKa1pEWXdaV0k1WVRVeFltTTJNR0V6TnpNeE5URmlOMkkwWWpSbU1qQTNaQV9SUzI1NiIsInR5cCI6ImF0K2p3dCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJSZjJMV3VKaDFSaERVVWJXc0VveTZhZ2M4dVVhIiwiYXV0IjoiQVBQTElDQVRJT04iLCJhdWQiOlsiUmYyTFd1SmgxUmhEVVViV3NFb3k2YWdjOHVVYSIsImNob3JlbzpkZXBsb3ltZW50OnByb2R1Y3Rpb24iXSwibmJmIjoxNzI5MTU1NjQ2LCJhenAiOiJSZjJMV3VKaDFSaERVVWJXc0VveTZhZ2M4dVVhIiwib3JnX2lkIjoiYTIzYTBhZTctYjIzZS00MWEzLTk1NDEtOWYwMjcyYjMxN2I3IiwiaXNzIjoiaHR0cHM6XC9cL2FwaS5hc2dhcmRlby5pb1wvdFwvb3U4MTJcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE3MjkxNTY1NDYsIm9yZ19uYW1lIjoib3U4MTIiLCJpYXQiOjE3MjkxNTU2NDYsImp0aSI6Ijg4N2ZmY2IyLWMyMzItNDU2Ny1iOTRkLTIwOTZhOWI4YWI0MCIsImNsaWVudF9pZCI6IlJmMkxXdUpoMVJoRFVVYldzRW95NmFnYzh1VWEifQ.a1zNZG19LzSqAshQXj1kIo0iny7djoo2LxsrTJjK9KINpZZ4Zms2hBWeZm5zAlsMDK3V5C7twoI2nXXeRiS5GCWNIX0tZAwORb9q8Mj2XH1iPnQdxWpnFNi9NRBj5mTayytugyQBs3j2J27PPeWSQOHbbbdaJGpFCrHQQfYKsogTIQl3U_hRX4ClIK8EarXcWlzRz4s_PYZiAzrnAgfFu3Hb-4JbKldgFgMaxwr06HAIQ6ktRa-xMsXTlQ-yCc41qBf-b-nZVyA2ZBlGi2q-YbTHnzOnGCAsasf5PYU7GRY9wQjp1yyM6j3qv6RoyYd29Ads2GbRfYcHuRvWKX0BEw'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('dataTable').querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing data
+                const areaCodes = [2187, 2072, 2224, 2081, 2114, 2088, 2256, 2023, 2163, 2220, 2247, 2032, 2065, 2209, 2066, 2011];
+                data.areas.forEach(area => {
+                    if (areaCodes.includes(area.id)) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><img src="${area.flag}" width="20"></td>
+                            <td><a href="./competition.html?areas=${area.id}">${area.name}</a></td>
+                        `;
+                        tbody.appendChild(row);
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
+
+</body>
+</html>
