@@ -79,6 +79,8 @@
                 });
             })
             .catch(error => console.error('Error fetching data:', error));
+            if(urlParams.get('round') != "")
+                document.getElementById(urlParams.get('round')).scrollIntoView();
         }
 </script>
 
