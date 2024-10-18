@@ -17,7 +17,7 @@
             border-collapse: collapse;
         }
         th, td {
-            border: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
@@ -30,15 +30,6 @@
 
 <h1>football results</h1>
 <table id="dataTable">
-    <thead>
-        <tr>
-            <th colspan="2" style="text-align:center">Home team</th>
-            <th></th>
-            <th colspan="2"style="text-align:center">Away team</th>
-            <th>Matchday</th>
-            <th>Date</th>
-        </tr>
-    </thead>
     <tbody>
         <!-- Data will be inserted here -->
     </tbody>
@@ -61,8 +52,15 @@
                 tbody.innerHTML = ''; // Clear existing data
                 console.log(data);
                 
+                var raound = 0;
                 data.matches.forEach(match => {
                     const row = document.createElement('tr');
+                    if(round != match.matchday) {
+                        const dividerRow = document.createElement('tr');
+                        dividerRow.innerHTML = <td colspan="6" style="text-align: center; color:#ccc">Round {match.matchday}</td>
+                        tbody.appendChild(dividerRow);
+                        round = match.matchday;
+                    }
                     row.innerHTML = `
                         <td><a href="team.html?team=${match.homeTeam.id}">${match.homeTeam.name}</a></td>
                         <td><img src="${match.homeTeam.crest}" width="25"></td>
