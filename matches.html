@@ -48,7 +48,7 @@
         })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('leagueEmblem').srv = data.competition.emblem;;
+                document.getElementById('leagueEmblem').src = data.competition.emblem;;
                 const tbody = document.getElementById('dataTable').querySelector('tbody');
                 tbody.innerHTML = ''; // Clear existing data
                 console.log(data);
