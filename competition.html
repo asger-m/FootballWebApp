@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ligaer</title>
     <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial;
+            font-size: 14px;
+            font-weight: 400;
+            color: #3b3b3b;
+        }
+
         table {
-            margin: 0 0 40px 0;
-            width: 100%;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            display: table;
-            @media screen and (max-width: 580px);
-            display: block;
+            border-collapse: collapse;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid #ccc;
+            padding: 2px;
             text-align: left;
         }
         th {
@@ -26,7 +28,7 @@
 <body onload="getData()">
 
 
-<h1>football results</h1>
+<img src="" width="100px"/>
 <table id="dataTable">
     <thead>
         <tr>
@@ -62,11 +64,10 @@ console.log(urlParams.get('areas'));
                 data.competitions.forEach(competitions => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${competitions.id}</td>
+                        <td><img src="${competitions.emblem}" width="20"></td>
                         <td>${competitions.name}</td>
                         <td><a href="./standings.html?competitions=${competitions.code}">Standings</a></td>
                         <td><a href="./matches.html?competitions=${competitions.code}">Matches</a></td>
-                        <td><img src="${competitions.emblem}" width="60"></td>
                         
                     `;
                     tbody.appendChild(row);
