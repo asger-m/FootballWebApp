@@ -62,14 +62,19 @@
                         tbody.appendChild(dividerRow);
                         round = match.matchday;
                     }
-                    row.innerHTML = `
+                    
+                    var rowData = `
                         <td><a href="team.html?team=${match.homeTeam.id}">${match.homeTeam.name}</a></td>
-                        <td><img src="${match.homeTeam.crest}" width="25"></td>
-                        <td style="text-align:center"><a href="match.html?match=${match.id}">${match.score.fullTime.home}-${match.score.fullTime.away}</a></td>
+                        <td><img src="${match.homeTeam.crest}" width="25"></td>`;
+                    if(match.status=='FINISHED')
+                        rowData += `<td style="text-align:center"><a href="match.html?match=${match.id}">${match.score.fullTime.home}-${match.score.fullTime.away}</a></td>`;
+                    else
+                        rowData += `<td style="text-align:center"><a href="match.html?match=${match.id}"></a></td>`;
+                    rowData += `
                         <td><img src="${match.awayTeam.crest}" width="25"></td>
                         <td><a href="team.html?team=${match.awayTeam.id}">${match.awayTeam.name}</a></td>
-                        <td>${new Date(match.utcDate).toString().substring(0,21)}</td>
-                    `;
+                        <td>${new Date(match.utcDate).toString().substring(0,21)}</td>`;
+                    row.innerHTML = rowData;
                     tbody.appendChild(row);
                 });
             })
