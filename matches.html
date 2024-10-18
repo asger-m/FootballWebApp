@@ -28,7 +28,7 @@
 </head>
 <body onload="getData()">
 
-<h1>football results</h1>
+<img id="leagueEmblem" width="100px"/>
 <table id="dataTable">
     <tbody>
         <!-- Data will be inserted here -->
@@ -48,6 +48,7 @@
         })
             .then(response => response.json())
             .then(data => {
+                document.getElementById('leagueEmblem').srv = data.competition.emblem;;
                 const tbody = document.getElementById('dataTable').querySelector('tbody');
                 tbody.innerHTML = ''; // Clear existing data
                 console.log(data);
