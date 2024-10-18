@@ -58,7 +58,7 @@
                     const row = document.createElement('tr');
                     if(round != match.matchday) {
                         const dividerRow = document.createElement('tr');
-                        dividerRow.innerHTML = `<td colspan="6" style="font-weight: 600; background-color:#ccc"><a name="${match.matchday}">Round ${match.matchday}</a></td>`;
+                        dividerRow.innerHTML = `<td colspan="6" style="font-weight: 600; background-color:#ccc"><a id="round_${match.matchday}">Round ${match.matchday}</a></td>`;
                         tbody.appendChild(dividerRow);
                         round = match.matchday;
                     }
