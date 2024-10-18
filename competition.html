@@ -61,7 +61,7 @@ console.log(urlParams.get('areas'));
                         <td><img src="${competitions.emblem}" width="20"></td>
                         <td>${competitions.name}</td>
                         <td><a href="./standings.html?competitions=${competitions.code}">Standings</a></td>
-                        <td><a href="./matches.html?competitions=${competitions.code}&round=${competitions.currentSeason.currentMatchday}">Matches</a></td>
+                        <td><a href="./matches.html?competitions=${competitions.code}#${competitions.currentSeason.currentMatchday}">Matches</a></td>
                         
                     `;
                     tbody.appendChild(row);
