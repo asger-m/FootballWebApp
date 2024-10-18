@@ -26,7 +26,7 @@
         }
     </style>
 </head>
-<body onload="getData()">
+<body onload="getData();gotoRound();">
 
 <img id="leagueEmblem" width="100px"/>
 <table id="dataTable">
@@ -79,10 +79,14 @@
                 });
             })
             .catch(error => console.error('Error fetching data:', error));
-        console.log('round_'+urlParams.get('round'));
-            if(urlParams.get('round') != "")
-                document.getElementById('round_'+urlParams.get('round')).scrollIntoView();
         }
+    function gotoRound() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if(urlParams.get('round') != "")
+            document.getElementById('round_'+urlParams.get('round')).scrollIntoView();
+        }
+
 </script>
 
 </body>
