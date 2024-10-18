@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lande</title>
     <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial;
+            font-size: 14px;
+            font-weight: 400;
+            color: #3b3b3b;
+        }
+
         table {
-            width: 100%;
             border-collapse: collapse;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid #ccc;
+            padding: 2px;
             text-align: left;
         }
         th {
@@ -26,8 +32,8 @@
 <table id="dataTable">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Flag</th>
+            <th></th>
+            <th>Country</th>
 
         </tr>
     </thead>
@@ -54,8 +60,8 @@
                     if (areaCodes.includes(area.id)) {
                         const row = document.createElement('tr');
                         row.innerHTML = `
+                            <td><img src="${area.flag}" width="20"></td>
                             <td><a href="./competition.html?areas=${area.id}">${area.name}</a></td>
-                            <td><img src="${area.flag}" width="60"></td>                        
                         `;
                         tbody.appendChild(row);
                     }
