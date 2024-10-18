@@ -57,7 +57,7 @@
                     const row = document.createElement('tr');
                     if(round != match.matchday) {
                         const dividerRow = document.createElement('tr');
-                        dividerRow.innerHTML = '<td colspan="6" style="text-align: center; color:#ccc"><a name="${match.matchday}">Round ${match.matchday}</a></td>';
+                        dividerRow.innerHTML = `<td colspan="6" style="text-align: center; background-color:#ccc"><a name="${match.matchday}">Round ${match.matchday}</a></td>`;
                         tbody.appendChild(dividerRow);
                         round = match.matchday;
                     }
@@ -67,7 +67,6 @@
                         <td style="text-align:center"><a href="match.html?match=${match.id}">${match.score.fullTime.home}-${match.score.fullTime.away}</a></td>
                         <td><img src="${match.awayTeam.crest}" width="25"></td>
                         <td><a href="team.html?team=${match.awayTeam.id}">${match.awayTeam.name}</a></td>
-                        <td>${match.matchday}</td>
                         <td>${new Date(match.utcDate).toString().substring(0,21)}</td>
                     `;
                     tbody.appendChild(row);
