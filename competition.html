@@ -28,7 +28,7 @@
 <body onload="getData()">
 
 
-<img src="" width="100px"/>
+<img id="flag" width="100px"/>
 <table id="dataTable">
     <thead>
         <tr>
@@ -57,6 +57,8 @@ console.log(urlParams.get('areas'));
         })
             .then(response => response.json())
             .then(data => {
+                document.getElementById('flag').src=data.competitions.area.flag;
+
                 const tbody = document.getElementById('dataTable').querySelector('tbody');
                 tbody.innerHTML = ''; // Clear existing data
                 console.log(data);
