@@ -58,7 +58,7 @@
                     const row = document.createElement('tr');
                     if(round != match.matchday) {
                         const dividerRow = document.createElement('tr');
-                        dividerRow.innerHTML = `<td colspan="6" style="font-weight: 600; background-color:#ddd"><div id="round_${match.matchday}">Round ${match.matchday}</div></td>`;
+                        dividerRow.innerHTML = `<td colspan="6" style="font-weight: 600; background-color:#ddd"><div id="${match.matchday}">Round ${match.matchday}</div></td>`;
                         tbody.appendChild(dividerRow);
                         round = match.matchday;
                     }
@@ -84,7 +84,7 @@
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.get('round') != "") {
-            var roundId = 'round_'+urlParams.get('round');
+            var roundId = urlParams.get('round');
             console.log(roundId);
             var thisRound = document.getElementById(roundId);
             console.log(thisRound == null);
